@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sky_view/pages/home%20page/home.dart';
 
 void main() {
   runApp(const SkyView());
@@ -9,12 +10,10 @@ class SkyView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(fontFamily: 'Montserrat'),
+      home: const Home(),
     );
   }
 }
