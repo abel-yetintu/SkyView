@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:sky_view/pages/home%20page/bottom_widget.dart';
 import 'package:sky_view/pages/home%20page/top_widget.dart';
@@ -15,7 +16,7 @@ class Home extends StatelessWidget {
         automaticallyImplyLeading: false,
         forceMaterialTransparency: true,
         title: Padding(
-          padding: const EdgeInsets.only(top: 8.0),
+          padding: EdgeInsets.only(top: 8.0.h),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -27,66 +28,78 @@ class Home extends StatelessWidget {
                 child: IconButton(
                   icon: Image.asset(
                     'assets/icons/degree_c.png',
-                    width: 22,
-                    height: 22,
+                    width: 20.w,
+                    height: 20.h,
                     color: Colors.grey[100],
                   ),
                   onPressed: () {},
                 ),
               ),
-              Column(
-                children: [
-                  Text(
-                    'Yogyakarta, Indonesia',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey[200],
-                    ),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 9.0.w),
+                  child: Column(
+                    children: [
+                      Text(
+                        'Addis Ababa, Ethiopia',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[200],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 6.h,
+                      ),
+                      Text(
+                        'Thursday, 05 June 2024',
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          color: Colors.grey[300],
+                        ),
+                      )
+                    ],
                   ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    'Thursday, 05 June 2024',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey[300],
-                    ),
-                  )
-                ],
+                ),
               ),
               Container(
-                padding: const EdgeInsets.all(14),
                 decoration: const BoxDecoration(
                   color: Color.fromARGB(255, 10, 98, 230),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(
-                  Icons.location_on,
-                  color: Colors.grey[100],
-                  size: 20,
+                child: IconButton(
+                  icon: Image.asset(
+                    'assets/icons/pin.png',
+                    width: 20.w,
+                    height: 20.h,
+                    color: Colors.grey[100],
+                  ),
+                  onPressed: () {},
                 ),
               ),
             ],
           ),
         ),
       ),
-      body: const Column(
+      body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
+          const Expanded(
             child: TopWidget(),
           ),
-          BottomWidget(),
+          Container(
+            margin: EdgeInsets.only(bottom: 6.h),
+            child: const BottomWidget(),
+          ),
         ],
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.fromLTRB(100, 0, 100, 8),
+        padding: EdgeInsets.fromLTRB(100.w, 0, 100.w, 8.h),
         child: GNav(
-          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+          padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 16.w),
           tabBackgroundColor: Colors.white,
-          tabBorderRadius: 12,
+          tabBorderRadius: 12.r,
           color: Colors.white,
           activeColor: Colors.grey.shade900,
           tabs: const [

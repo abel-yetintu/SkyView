@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sky_view/pages/home%20page/home.dart';
 
 void main() {
@@ -10,10 +11,17 @@ class SkyView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: 'Montserrat'),
-      home: const Home(),
+    return ScreenUtilInit(
+      designSize: const Size(360, 760),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(fontFamily: 'Montserrat'),
+          home: const Home(),
+        );
+      },
     );
   }
 }

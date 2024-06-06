@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sky_view/pages/home%20page/info_bar.dart';
 
 class TopWidget extends StatelessWidget {
@@ -7,8 +8,8 @@ class TopWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
@@ -17,37 +18,38 @@ class TopWidget extends StatelessWidget {
           ],
         ),
         borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(40),
-          bottomRight: Radius.circular(40),
+          bottomLeft: Radius.circular(50.r),
+          bottomRight: Radius.circular(50.r),
         ),
       ),
       child: Padding(
         padding:
-            EdgeInsets.only(top: Scaffold.of(context).appBarMaxHeight! + 20),
+            EdgeInsets.only(top: Scaffold.of(context).appBarMaxHeight! + 20.h),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(
-              width: 125,
+              width: 125.w,
               child: Image.asset('assets/images/cloudy.png'),
             ),
-            const SizedBox(
-              height: 8,
+            SizedBox(
+              height: 8.h,
             ),
             Text(
               '29°',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.grey[200],
-                fontSize: 65,
+                fontSize: 60.sp,
                 fontWeight: FontWeight.bold,
               ),
             ),
             Text(
               'Sunny Morning',
-              style: TextStyle(color: Colors.grey[200], fontSize: 16),
+              style: TextStyle(color: Colors.grey[200], fontSize: 14.sp),
             ),
-            const SizedBox(
-              height: 32,
+            SizedBox(
+              height: 24.h,
             ),
             const InfoBar(),
           ],

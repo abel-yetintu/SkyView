@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WeatherCard extends StatelessWidget {
   const WeatherCard({super.key});
@@ -6,45 +7,43 @@ class WeatherCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(right: 8),
+      margin: EdgeInsets.only(right: 8.h),
+      padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 22.w),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
         color: const Color.fromARGB(255, 24, 24, 24),
       ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 22),
-        child: Column(
-          children: [
-            const SizedBox(
-              width: 24,
-              height: 24,
-              child: Image(
-                image: AssetImage('assets/images/cloudy.png'),
-              ),
+      child: Column(
+        children: [
+          SizedBox(
+            width: 26.w,
+            height: 26.h,
+            child: const Image(
+              image: AssetImage('assets/images/cloudy.png'),
             ),
-            const SizedBox(
-              height: 6,
+          ),
+          SizedBox(
+            height: 6.h,
+          ),
+          Text(
+            '21°',
+            style: TextStyle(
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w700,
+              color: Colors.grey[200],
             ),
-            Text(
-              '21°',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-                color: Colors.grey[200],
-              ),
+          ),
+          SizedBox(
+            height: 6.h,
+          ),
+          Text(
+            '10 AM',
+            style: TextStyle(
+              fontSize: 10.sp,
+              color: Colors.grey[400],
             ),
-            const SizedBox(
-              height: 6,
-            ),
-            Text(
-              '10 AM',
-              style: TextStyle(
-                fontSize: 10,
-                color: Colors.grey[400],
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
