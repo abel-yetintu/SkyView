@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sky_view/pages/home%20page/home.dart';
+import 'package:sky_view/Wrapper.dart';
 
 void main() {
   runApp(const SkyView());
@@ -18,8 +19,13 @@ class SkyView extends StatelessWidget {
       builder: (context, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          theme: ThemeData(fontFamily: 'Montserrat'),
-          home: const Home(),
+          theme: ThemeData(
+            fontFamily: 'Montserrat',
+            appBarTheme: const AppBarTheme(
+              systemOverlayStyle: SystemUiOverlayStyle.light,
+            ),
+          ),
+          home: const Wrapper(),
         );
       },
     );
