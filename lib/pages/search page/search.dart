@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:sky_view/pages/search%20page/recent_location_card.dart';
+import 'package:sky_view/providers/navigation_provider.dart';
+import 'package:sky_view/providers/weather_forecast_provider.dart';
 
 class Search extends StatefulWidget {
   const Search({super.key});
@@ -14,6 +17,8 @@ class _SearchState extends State<Search> {
 
   @override
   Widget build(BuildContext context) {
+    final NavigationProvider navigation = Provider.of<NavigationProvider>(context, listen: false);
+    final WeatherForecastProvider weatherForecastProvider = Provider.of<WeatherForecastProvider>(context);
     return SafeArea(
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 24.h),
@@ -53,7 +58,7 @@ class _SearchState extends State<Search> {
                       color: Colors.grey[400],
                     ),
                     onPressed: () {
-                      setState(() {  
+                      setState(() {
                         _textInputController.clear();
                       });
                     },
@@ -62,6 +67,11 @@ class _SearchState extends State<Search> {
                 setState(() {
                   _textInputController.text = value;
                 });
+              },
+              textInputAction: TextInputAction.search,
+              onSubmitted: (value) {
+                weatherForecastProvider.getWeatherForecastByCityName(_textInputController.text);
+                navigation.changePage(0);
               },
             ),
             SizedBox(

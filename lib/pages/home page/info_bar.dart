@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sky_view/models/weather_forecast.dart';
 
 class InfoBar extends StatelessWidget {
-  const InfoBar({super.key});
+  final WeatherForecast weatherForecast;
+  const InfoBar({super.key, required this.weatherForecast});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       margin: EdgeInsets.symmetric(horizontal: 6.w, vertical: 8.h),
       color: Colors.white,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(50.r))),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(50.r))),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 32.0.w, vertical: 24.0.h),
         child: IntrinsicHeight(
@@ -18,9 +19,9 @@ class InfoBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
-                children: [
+                children: [ 
                   Text(
-                    '18km/h',
+                    '${weatherForecast.current.windKph.round()}km/h',
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 16.sp,
@@ -46,7 +47,7 @@ class InfoBar extends StatelessWidget {
               Column(
                 children: [
                   Text(
-                    '1014 mbar',
+                    '${weatherForecast.current.pressureMb.round()} mbr',
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 16.sp,
@@ -72,7 +73,7 @@ class InfoBar extends StatelessWidget {
               Column(
                 children: [
                   Text(
-                    '32%',
+                    '${weatherForecast.current.humidity}%',
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 16.sp,
