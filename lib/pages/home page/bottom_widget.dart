@@ -36,7 +36,11 @@ class _BottomWidgetState extends State<BottomWidget> {
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: EdgeInsets.only(right: 8.0.w),
-                        child: ShimmerWidget.rectangular(height: 21.h, width: 70.w),
+                        child: ShimmerWidget.rectangular(
+                          height: 21.h,
+                          width: 70.w,
+                          shapeBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
+                        ),
                       );
                     },
                   )

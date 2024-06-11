@@ -27,10 +27,10 @@ class WeatherApi {
       case 200:
         return WeatherForecast.fromJson(jsonDecode(response.body));
       case 400:
-        throw BadRequestException(message: 'Bad request. Please try again.');
+        throw BadRequestException(message: "Bad Request: ${ErrorResponse.fromJson(jsonDecode(response.body)).error.message}");
       case 401:
       case 403:
-        throw UnAuthorizedException(message: 'Unauthorized access.');
+        throw UnAuthorizedException(message: 'Unauthorized access: ${ErrorResponse.fromJson(jsonDecode(response.body)).error.message}');
       default:
         throw FetchDataException(message: ErrorResponse.fromJson(jsonDecode(response.body)).error.message);
     }

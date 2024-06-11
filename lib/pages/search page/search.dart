@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:sky_view/pages/search%20page/recent_location_card.dart';
+import 'package:sky_view/pages/search%20page/recent_list.dart';
 import 'package:sky_view/providers/navigation_provider.dart';
 import 'package:sky_view/providers/weather_forecast_provider.dart';
 
@@ -78,28 +78,7 @@ class _SearchState extends State<Search> {
               height: 24.h,
             ),
             if (_textInputController.text.isEmpty) ...[
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Recent locations',
-                      style: TextStyle(color: Colors.grey, fontSize: 16.sp),
-                    ),
-                    SizedBox(
-                      height: 8.h,
-                    ),
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: 5,
-                        itemBuilder: (context, index) {
-                          return const RecentLocationCard();
-                        },
-                      ),
-                    )
-                  ],
-                ),
-              ),
+              const Expanded(child: RecentList()),
             ] else if (_textInputController.text.isNotEmpty)
               ...[]
           ],

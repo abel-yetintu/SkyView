@@ -16,10 +16,10 @@ class WeatherForecastProvider extends ChangeNotifier {
 
   getWeatherForecastByCityName(String city) async {
     isLoading = true;
+    _appException = null;
     notifyListeners();
     try {
       _weatherForecast = await _weatherApi.getWeatherForecastByCityName(city);
-      _appException = null;
     } on AppException catch (e) {
       _appException = e;
     } finally {

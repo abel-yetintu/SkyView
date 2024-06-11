@@ -118,16 +118,11 @@ class TopWidget extends StatelessWidget {
           ),
           Consumer<WeatherForecastProvider>(builder: (context, value, child) {
             if (value.isLoading) {
-              return Shimmer.fromColors(
-                baseColor: Colors.white,
-                highlightColor: Colors.grey.shade700,
-                child: Container(
-                  width: 125.w,
-                  height: 125.h,
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade200.withOpacity(0.2),
-                    borderRadius: BorderRadius.circular(12.r),
-                  ),
+              return ShimmerWidget.rectangular(
+                width: 130.w,
+                height: 130.h,
+                shapeBorder: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.r),
                 ),
               );
             } else {
@@ -150,7 +145,12 @@ class TopWidget extends StatelessWidget {
               if (value.isLoading) {
                 return Padding(
                   padding: EdgeInsets.only(bottom: 12.h),
-                  child: ShimmerWidget.rectangular(height: 80.h, width: 80.w),
+                  child: ShimmerWidget.rectangular(
+                      height: 80.h,
+                      width: 80.w,
+                      shapeBorder: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.r),
+                      )),
                 );
               } else {
                 return Text(
