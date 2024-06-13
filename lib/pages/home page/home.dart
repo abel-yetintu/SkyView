@@ -7,24 +7,8 @@ import 'package:sky_view/providers/weather_forecast_provider.dart';
 import 'package:sky_view/utils/app_exception.dart';
 import 'package:sky_view/utils/error_widget.dart';
 
-class Home extends StatefulWidget {
+class Home extends StatelessWidget {
   const Home({super.key});
-
-  @override
-  State<Home> createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  @override
-  void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      var weatherForecastProvdier = Provider.of<WeatherForecastProvider>(context, listen: false);
-      if (weatherForecastProvdier.weatherForecast == null) {
-        weatherForecastProvdier.getWeatherForecastByCityName('addis ababa');
-      }
-    });
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

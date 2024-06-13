@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:geolocator/geolocator.dart';
 import 'package:sky_view/models/error_response.dart';
 import 'package:sky_view/utils/app_exception.dart';
 import 'package:sky_view/utils/creds.dart';
@@ -12,6 +13,19 @@ class WeatherApi {
 
   Future<WeatherForecast?> getWeatherForecastByCityName(String city) async {
     final uri = Uri.parse('${Credentials.baseUrl}?key=${Credentials.apiKey}&q=$city&days=3&api=no&alerts=n0');
+    try {
+      final response = await http.get(uri).timeout(const Duration(seconds: TIME_OUT_DURATION));
+      return _processResponse(response);
+    } on SocketException {
+      throw FetchDataException(message: 'No internet connection.');
+    } on TimeoutException {
+      throw ApiNotRespondingException(message: 'Request took too long. try again.');
+    }
+  }
+
+  Future<WeatherForecast?> getWeatherForecastByLocation(Position position) async {
+    final uri =
+        Uri.parse('${Credentials.baseUrl}?key=${Credentials.apiKey}&q=${position.latitude},${position.longitude}&days=3&api=no&alerts=n0');
     try {
       final response = await http.get(uri).timeout(const Duration(seconds: TIME_OUT_DURATION));
       return _processResponse(response);
