@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sky_view/providers/navigation_provider.dart';
+import 'package:sky_view/providers/recent_locations_provider.dart';
 import 'package:sky_view/wrapper.dart';
 import 'package:sky_view/providers/weather_forecast_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const SkyView());
 }
 
@@ -22,7 +24,10 @@ class SkyView extends StatelessWidget {
         ),
         ChangeNotifierProvider<WeatherForecastProvider>(
           create: (context) => WeatherForecastProvider(),
-        )
+        ),
+        ChangeNotifierProvider<RecentLocationsProvider>(
+          create: (context) => RecentLocationsProvider(),
+        ),
       ],
       child: ScreenUtilInit(
         designSize: const Size(360, 760),
