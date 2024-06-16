@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:sky_view/models/weather_forecast.dart';
+import 'package:sky_view/providers/general_settings_provider.dart';
 import 'package:sky_view/utils/extensions.dart';
 
 class HourCard extends StatelessWidget {
@@ -10,6 +12,7 @@ class HourCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    GeneralSettings unit = Provider.of<GeneralSettings>(context);
     int isDay = hour.isDay;
     String text = hour.condition.text.trim().toCapitalized();
     String folderPath = isDay == 1 ? 'day' : 'night';
@@ -36,7 +39,7 @@ class HourCard extends StatelessWidget {
             height: 6.h,
           ),
           Text(
-            '${hour.tempC.round()}°',
+            unit.isCelsius ? '${hour.tempC.round()}°' : '${hour.tempF.round()}°',
             style: TextStyle(
               fontSize: 18.sp,
               fontWeight: FontWeight.w700,

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
+import 'package:sky_view/providers/general_settings_provider.dart';
 import 'package:sky_view/providers/navigation_provider.dart';
 import 'package:sky_view/providers/weather_forecast_provider.dart';
 import 'pages/home page/home.dart';
@@ -71,14 +72,25 @@ class _WrapperState extends State<Wrapper> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      var generalSettings = Provider.of<GeneralSettings>(context, listen: false);
       var weatherForecastProvdier = Provider.of<WeatherForecastProvider>(context, listen: false);
-      var navigation = Provider.of<NavigationProvider>(context, listen: false);
-      if (weatherForecastProvdier.weatherForecast == null && weatherForecastProvdier.appException == null) {
-        final position = await _getCurrentPosition();
-        if (position != null) {
-          weatherForecastProvdier.getWeatherForecastByLOcation(position);
-        } else {
-          navigation.changePage(1);
+
+      if (generalSettings.defaultLocation == null) {
+        var navigation = Provider.of<NavigationProvider>(context, listen: false);
+
+        if (weatherForecastProvdier.weatherForecast == null && weatherForecastProvdier.appException == null) {
+          final position = await _getCurrentPosition();
+
+          if (position != null) {
+            await weatherForecastProvdier.getWeatherForecastByLocation(position);
+            generalSettings.setLocation(weatherForecastProvdier.weatherForecast?.location.name);
+          } else {
+            navigation.changePage(1);
+          }
+        }
+      } else {
+        if (weatherForecastProvdier.weatherForecast == null && weatherForecastProvdier.appException == null) {
+          weatherForecastProvdier.getWeatherForecastByCityName(generalSettings.defaultLocation!);
         }
       }
     });

@@ -15,7 +15,7 @@ class WeatherForecastProvider extends ChangeNotifier {
   AppException? _appException;
   AppException? get appException => _appException;
 
-  getWeatherForecastByCityName(String city) async {
+  Future<void> getWeatherForecastByCityName(String city) async {
     isLoading = true;
     _appException = null;
     notifyListeners();
@@ -29,7 +29,7 @@ class WeatherForecastProvider extends ChangeNotifier {
     }
   }
 
-  getWeatherForecastByLOcation(Position position) async {
+  Future<void> getWeatherForecastByLocation(Position position) async {
     isLoading = true;
     _appException = null;
     notifyListeners();

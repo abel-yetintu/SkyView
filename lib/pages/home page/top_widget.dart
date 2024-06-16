@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sky_view/pages/home%20page/info_bar.dart';
+import 'package:sky_view/providers/general_settings_provider.dart';
 import 'package:sky_view/providers/weather_forecast_provider.dart';
 import 'package:sky_view/utils/extensions.dart';
 import 'package:sky_view/utils/shimmer_widget.dart';
@@ -13,6 +14,7 @@ class TopWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var generalSettings = Provider.of<GeneralSettings>(context, listen: false);
     return Container(
       decoration: BoxDecoration(
         gradient: const LinearGradient(
@@ -46,14 +48,21 @@ class TopWidget extends StatelessWidget {
                     color: Color.fromARGB(255, 10, 98, 230),
                     shape: BoxShape.circle,
                   ),
-                  child: IconButton(
-                    icon: Image.asset(
-                      'assets/icons/degree_c.png',
-                      width: 20.w,
-                      height: 20.h,
-                      color: Colors.grey[100],
-                    ),
-                    onPressed: () {},
+                  child: Consumer<GeneralSettings>(
+                    builder: (context, value, child) {
+                      var isCelsius = value.isCelsius;
+                      return IconButton(
+                        icon: Image.asset(
+                          isCelsius ? 'assets/icons/degree_c.png' : 'assets/icons/degree_f.png',
+                          width: 20.w,
+                          height: 20.h,
+                          color: Colors.grey[100],
+                        ),
+                        onPressed: () {
+                          value.changeUnit();
+                        },
+                      );
+                    },
                   ),
                 ),
                 Expanded(
@@ -65,6 +74,9 @@ class TopWidget extends StatelessWidget {
                           if (value.isLoading) {
                             return ShimmerWidget.rectangular(height: 21.h, width: 180.w);
                           } else {
+                            if (generalSettings.defaultLocation == null) {
+                              generalSettings.setLocation(value.weatherForecast?.location.name);
+                            }
                             return Text(
                               '${value.weatherForecast!.location.name}, ${value.weatherForecast!.location.country}',
                               overflow: TextOverflow.ellipsis,
@@ -153,14 +165,20 @@ class TopWidget extends StatelessWidget {
                       )),
                 );
               } else {
-                return Text(
-                  '${value.weatherForecast!.current.tempC.round()}°',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.grey[200],
-                    fontSize: 60.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
+                return Consumer<GeneralSettings>(
+                  builder: (context, unit, child) {
+                    return Text(
+                      unit.isCelsius
+                          ? '${value.weatherForecast!.current.tempC.round()}°'
+                          : '${value.weatherForecast!.current.tempF.round()}°',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.grey[200],
+                        fontSize: 60.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+                  },
                 );
               }
             },
