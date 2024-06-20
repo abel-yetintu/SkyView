@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:sky_view/models/weather_forecast.dart';
+import 'package:sky_view/providers/general_settings_provider.dart';
 
 class InfoBar extends StatelessWidget {
   final WeatherForecast weatherForecast;
@@ -8,6 +10,7 @@ class InfoBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    GeneralSettings generalSettings = Provider.of<GeneralSettings>(context);
     return Card(
       margin: EdgeInsets.symmetric(horizontal: 6.w, vertical: 8.h),
       color: Colors.white,
@@ -21,7 +24,9 @@ class InfoBar extends StatelessWidget {
               Column(
                 children: [ 
                   Text(
-                    '${weatherForecast.current.windKph.round()}km/h',
+                    generalSettings.isKmph
+                        ? '${weatherForecast.current.windKph.round()}km/h'
+                        : '${weatherForecast.current.windMph.round()}m/h',
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 16.sp,
@@ -47,7 +52,9 @@ class InfoBar extends StatelessWidget {
               Column(
                 children: [
                   Text(
-                    '${weatherForecast.current.pressureMb.round()} mbr',
+                    generalSettings.isMilli
+                        ? '${weatherForecast.current.pressureMb.round()} mb'
+                        : '${weatherForecast.current.pressureIn.round()} in',
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 16.sp,

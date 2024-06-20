@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
+import 'package:sky_view/pages/settings%20page/settings.dart';
 import 'package:sky_view/providers/general_settings_provider.dart';
 import 'package:sky_view/providers/navigation_provider.dart';
 import 'package:sky_view/providers/weather_forecast_provider.dart';
@@ -17,7 +18,7 @@ class Wrapper extends StatefulWidget {
 }
 
 class _WrapperState extends State<Wrapper> {
-  final List<Widget> _pages = const [Home(), Search()];
+  final List<Widget> _pages = const [Home(), Search(), Settings()];
 
   Future<bool> _handleLocationPermission() async {
     bool serviceEnabled;
@@ -100,35 +101,42 @@ class _WrapperState extends State<Wrapper> {
   @override
   Widget build(BuildContext context) {
     NavigationProvider navigation = Provider.of<NavigationProvider>(context);
-    return Scaffold(
-      backgroundColor: Colors.black,
-      extendBodyBehindAppBar: true,
-      resizeToAvoidBottomInset: false,
-      body: _pages[navigation.pageIndex],
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.fromLTRB(100.w, 0, 100.w, 8.h),
-        child: GNav(
-          padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 16.w),
-          tabBackgroundColor: Colors.white,
-          tabBorderRadius: 12.r,
-          color: Colors.white,
-          activeColor: Colors.grey.shade900,
-          tabs: const [
-            GButton(
-              icon: Icons.home,
-              iconColor: Colors.white,
-              text: '',
-            ),
-            GButton(
-              icon: Icons.search,
-              iconColor: Colors.white,
-              text: '',
-            )
-          ],
-          selectedIndex: navigation.pageIndex,
-          onTabChange: (value) {
-            navigation.changePage(value);
-          },
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        extendBodyBehindAppBar: true,
+        resizeToAvoidBottomInset: false,
+        body: _pages[navigation.pageIndex],
+        bottomNavigationBar: Padding(
+          padding: EdgeInsets.fromLTRB(40.w, 0, 40.w, 8.h),
+          child: GNav(
+            padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 16.w),
+            tabBackgroundColor: Colors.white,
+            tabBorderRadius: 12.r,
+            color: Colors.white,
+            activeColor: Colors.grey.shade900,
+            tabs: const [
+              GButton(
+                icon: Icons.home,
+                iconColor: Colors.white,
+                text: '',
+              ),
+              GButton(
+                icon: Icons.search,
+                iconColor: Colors.white,
+                text: '',
+              ),
+              GButton(
+                icon: Icons.settings,
+                iconColor: Colors.white,
+                text: '',
+              )
+            ],
+            selectedIndex: navigation.pageIndex,
+            onTabChange: (value) {
+              navigation.changePage(value);
+            },
+          ),
         ),
       ),
     );

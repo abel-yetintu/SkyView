@@ -43,31 +43,9 @@ class TopWidget extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 10, 98, 230),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Consumer<GeneralSettings>(
-                    builder: (context, value, child) {
-                      var isCelsius = value.isCelsius;
-                      return IconButton(
-                        icon: Image.asset(
-                          isCelsius ? 'assets/icons/degree_c.png' : 'assets/icons/degree_f.png',
-                          width: 20.w,
-                          height: 20.h,
-                          color: Colors.grey[100],
-                        ),
-                        onPressed: () {
-                          value.changeUnit();
-                        },
-                      );
-                    },
-                  ),
-                ),
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 9.0.w),
+                    padding: EdgeInsets.symmetric(horizontal: 9.0.w, vertical: 4.h),
                     child: Column(
                       children: [
                         Consumer<WeatherForecastProvider>(builder: (context, value, child) {
@@ -108,21 +86,6 @@ class TopWidget extends StatelessWidget {
                         }),
                       ],
                     ),
-                  ),
-                ),
-                Container(
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 10, 98, 230),
-                    shape: BoxShape.circle,
-                  ),
-                  child: IconButton(
-                    icon: Image.asset(
-                      'assets/icons/pin.png',
-                      width: 20.w,
-                      height: 20.h,
-                      color: Colors.grey[100],
-                    ),
-                    onPressed: () {},
                   ),
                 ),
               ],
