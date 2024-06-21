@@ -53,7 +53,9 @@ class TopWidget extends StatelessWidget {
                             return ShimmerWidget.rectangular(height: 21.h, width: 180.w);
                           } else {
                             if (generalSettings.defaultLocation == null) {
-                              generalSettings.setLocation(value.weatherForecast?.location.name);
+                              WidgetsBinding.instance.addPostFrameCallback((_) {
+                                generalSettings.setLocation(value.weatherForecast?.location.name);
+                              });
                             }
                             return Text(
                               '${value.weatherForecast!.location.name}, ${value.weatherForecast!.location.country}',

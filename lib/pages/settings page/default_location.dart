@@ -110,18 +110,25 @@ class _DefaultLocationState extends State<DefaultLocation> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  generalSettings.defaultLocation ?? 'No default location',
-                  style: TextStyle(color: Colors.grey[300], fontSize: 16.sp, fontWeight: FontWeight.w700),
-                ),
-                OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    foregroundColor: Colors.grey[200],
+                Expanded(
+                  child: Text(
+                    generalSettings.defaultLocation ?? 'No default location',
+                    style: TextStyle(color: Colors.grey[300], fontSize: 16.sp, fontWeight: FontWeight.w700),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  child: const Text('Set'),
-                  onPressed: () {
-                    _showDialog(generalSettings.defaultLocation ?? 'No default location', generalSettings);
-                  },
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 4.w),
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: Colors.grey[200],
+                    ),
+                    child: const Text('Set'),
+                    onPressed: () {
+                      _showDialog(generalSettings.defaultLocation ?? 'No default location', generalSettings);
+                    },
+                  ),
                 )
               ],
             ),
